@@ -12,13 +12,13 @@ function App() {
   let passwordref = useRef(null)
 
   const copyPasswordToClipBoard = useCallback(()=> {
-    passwordref.current?.select(password)
-    passwordref.current?.setSelectionRange(0,99)   
+    passwordref.current?.select()//heighlight the text
+    passwordref.current?.setSelectionRange(0,99)//heighlight only between the range   
      
-    const selectedText = window.getSelection().toString()
-    console.log(selectedText);
+    const selectedText = window.getSelection().toString()//take the text to UI(User Interface)
+    // console.log(selectedText);
     
-    window.navigator.clipboard.writeText(selectedText)
+    window.navigator.clipboard.writeText(selectedText)//copy the heighlight text
   },[password]
 )
 
