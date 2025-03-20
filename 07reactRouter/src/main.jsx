@@ -10,7 +10,8 @@ import Contact from './components/Contact/Contact.jsx'
 import User from './components/User/User.jsx'
 import GitHub from './components/GitHub/GitHub.jsx'
 import { anotherLoader, githubInfoLoader } from './components/GitHub/GitHubLoader.js'
-
+import Card from './components/Card/Card'
+import App from './App.jsx'
 
 // const router = createBrowserRouter ([
 //   {
@@ -50,12 +51,15 @@ const router = createBrowserRouter(
     path='githubTeacher' 
     element={<GitHub/>}/>
 
+    <Route path='Card' element={<Card/>}/>
      </Route>
+     
    
   )
 )
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={router} />
+    <App />
   </StrictMode>,
 )

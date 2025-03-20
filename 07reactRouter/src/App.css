@@ -40,3 +40,80 @@
 .read-the-docs {
   color: #888;
 }
+
+
+
+:root {
+	--theme-toggle-width: 5rem;
+	--theme-toggle-height: 2.5rem;
+	--theme-toggle-circle-width: 0;
+	--theme-toggle-circle-dimensions: calc(var(--theme-toggle-height) - 0.5rem);
+}
+
+body {
+	display: grid;
+	place-items: center;
+	height: 100vh;
+	min-height: 10rem;
+	background-color: #fff;
+	transition: background-color 0.5s;
+}
+
+.dark-body {
+	background-color: #111;
+}
+
+.theme-toggle {
+	-webkit-appearance: none;
+	outline: none;
+	cursor: pointer;
+	height: var(--theme-toggle-height);
+	width: var(--theme-toggle-width);
+	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+	border: 1px solid #ddd;
+	position: relative;
+	border-radius: var(--theme-toggle-circle-dimensions);
+	padding: 0.2rem;
+	background-color: #fff;
+	transition: background-color 0.5s;
+
+	&:before {
+		content: "";
+		width: var(--theme-toggle-circle-dimensions);
+		height: var(--theme-toggle-circle-dimensions);
+		background-color: #007bff;
+		position: absolute;
+		border-radius: 50%;
+		top: 50%;
+		transform: translateY(-50%) translateX(0%);
+		transition: transform 0.5s;
+	}
+
+	&:after {
+		content: "Light mode";
+		white-space: nowrap;
+		color: #111;
+		position: absolute;
+		left: calc(100% + 1.5rem);
+		font-size: 1.3rem;
+		top: 50%;
+		transform: translateY(-50%);
+		pointer-events: none;
+	}
+}
+
+.theme-toggle:checked {
+	background-color: #007bff;
+	border: none;
+
+	&:before {
+		background-color: #fff;
+		transform: translateY(-50%)
+			translateX(calc(var(--theme-toggle-width) - var(--theme-toggle-height)));
+	}
+
+	&:after {
+		content: "Dark mode";
+		color: #fff;
+	}
+}
