@@ -15,7 +15,7 @@ function InputBox(
 }) {
 
     const amountInputId = useId()
-    console.log(amount);
+    // console.log(amount);
     
 
     return (
