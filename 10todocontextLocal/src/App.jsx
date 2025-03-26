@@ -25,6 +25,10 @@ const toggleComplete = (id) => {
 //getItem-> (key)
 useEffect(() => {
   const todos = JSON.parse(localStorage.getItem("todos"))
+
+  // todos.map((store) => console.log(store.todo)
+  // )
+  
   if(todos && todos.length > 0) {
     setTodos(todos)
   }
@@ -32,7 +36,7 @@ useEffect(() => {
 
 //setItem-> (key, value)
 useEffect(() => {
-  localStorage.setItem("todo", JSON.stringify(todos))  
+  localStorage.setItem("todos", JSON.stringify(todos))  
 }, [todos])
 
 return (
