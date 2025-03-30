@@ -157,6 +157,7 @@ export class Service {
             )
         } catch (error) {
             console.log("Appwrite service :: fileDonwnLoad :: error", error);
+            return false
         }
     }
 

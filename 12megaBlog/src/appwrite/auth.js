@@ -1,5 +1,5 @@
 import conf from "../conf/conf";
-import { Client, Account, ID } from "appwrite";
+import { Client, Account, ID } from "appwrite"
 
 
 export class AuthService {
@@ -40,6 +40,17 @@ export class AuthService {
         }
     }
 
+    async getCurrentUser() {
+        try {
+            return await this.account.get();
+            
+        } catch (error) {
+            console.log("Appwrite service :: getCurrentUser :: error", error);
+            
+        }
+        return null
+    }
+
     async logout() {
         try {
            await this.account.deleteSessions();
@@ -52,7 +63,7 @@ export class AuthService {
 
 }
 
-const authservice = new AuthService();//create object
+const authService = new AuthService();//create object
 //we used constructror ,it call to the function during creation of object
 
-export default authservice
+export default authService
