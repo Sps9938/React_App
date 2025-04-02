@@ -66,6 +66,38 @@ export default function PostForm( { post }) {
             .replace(/\s/g, "-");
 
             return "";
+        /*
+
+        Q> What It Does:
+
+        -> trim() – Removes extra spaces from the start and end of the title.
+
+        -> toLowerCase() – Converts all characters to lowercase for consistency.
+
+        -> replace(/[^a-zA-Z\d\s]+/g, "-") – Replaces any non-alphanumeric characters (except spaces) with "-".
+
+        -> replace(/\s/g, "-") – Replaces all spaces with "-" to make it URL-friendly.
+
+
+        Example Transformations:
+
+        Title Input	        Slug Output
+
+        "Hello World!"	    "hello-world"
+        "React & Next.js"	 "react-next-js"
+        " My First Post "	"my-first-post"
+        
+        Q> Why Do We Need This?
+
+        1. SEO & URL-Friendly: Slugs are commonly used in URLs (example.com/blog/hello-world instead of example.com/blog/123).
+
+        2. Consistency: Ensures all slugs follow the same pattern.
+
+        3. Auto-Generation: Users don't need to manually enter a slug; it's created automatically from the title.
+
+
+        */
+
     },[])
 
 
@@ -75,7 +107,41 @@ export default function PostForm( { post }) {
                 setValue("slug", slugTransForm(value.title), { shouldValidate: true})
             }
         });
+        /*
+    Q> What Does It Do?
 
+        -> watch() – This is a function from        react-hook-form that listens to form field changes.
+
+        -> if (name === "title") – Checks if the changed field is "title".
+
+        -> slugTransForm(value.title) – Converts the title into a slug using the slugTransForm function.
+
+        -> setValue("slug", ...) – Updates the slug field dynamically based on the title input.
+
+        -> Cleanup (unsubscribe()) – Unsubscribes from watch() when the component unmounts to prevent memory leaks.
+
+    Q> Why Do We Need This?
+
+        -> Automatic Slug Generation: As the user types a title, the slug field updates in real time.
+
+        -> Keeps UI in Sync: Ensures the slug field stays updated without needing extra user input.
+
+        -> Memory Management: Prevents unnecessary re-renders and memory leaks by unsubscribing when the component unmounts.
+
+
+        Example Flow
+        
+        1. User types: "Hello World"
+
+        2. watch() detects the change in the title field.
+
+        3. slugTransForm("Hello World") converts it to "hello-world".
+
+        4. setValue("slug", "hello-world") updates the slug field in the form.
+
+        5. If the component unmounts, unsubscribe() ensures watch() stops listening.
+
+        */
         return () => subScription.unsubscribe()
     },[watch, slugTransForm, setValue]);
 
