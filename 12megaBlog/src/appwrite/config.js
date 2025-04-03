@@ -1,19 +1,19 @@
 import conf from "../conf/conf";
 
-import { Clinet, ID, Databases, Storage, Query } from "appwrite"
+import { Client, ID, Databases, Storage, Query } from "appwrite"
 
 
 export class Service {
-    Clinet = new Clinet();
+    client = new Client()
     databases;
     bucket;
     account;
     constructor() {
-        this.Clinet
+        this.client
             .setEndpoint(conf.appwriteUrl)
             .setProject(conf.appwriteProjectId)
         this.databases = new Databases(this.Clinet)
-        this.bucket = new Storage(this.Clinet);
+        this.bucket = new Storage(this.client);
 
     }
 

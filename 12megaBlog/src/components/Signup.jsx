@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { useForm } from 'react-hook-form'
 
 
-function Singup() {
+function Signup() {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -91,4 +91,4 @@ function Singup() {
     )
 }
 
-export default Singup
+export default Signup

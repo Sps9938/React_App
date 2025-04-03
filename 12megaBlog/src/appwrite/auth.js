@@ -1,17 +1,20 @@
-import conf from "../conf/conf";
+import conf from "../conf/conf.js";
 import { Client, Account, ID } from "appwrite"
 
 
 export class AuthService {
-    Client = new Client();
+    
+    
+    client = new Client();
     account;
 
     constructor() {
-        this.Client
+        // console.log(conf.appwriteUrl);
+        this.client
         .setEndpoint(conf.appwriteUrl)
         .setProject(conf.appwriteProjectId)
         
-        this.account = new Account(this.Client)
+        this.account = new Account(this.client)
     
     }
 
@@ -64,7 +67,8 @@ export class AuthService {
 
 }
 
-const authService = new AuthService();//create object
+const authService = new AuthService();
+//create object
 //we used constructror ,it call to the function during creation of object
 
 export default authService
