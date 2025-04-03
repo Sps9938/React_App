@@ -1,6 +1,16 @@
 import React from "react";
 import {Editor} from "@tinymce/tinymce-react"
+   //Editor is React component
 import {Controller} from "react-hook-form"
+  /*
+    Q> What is Controller?
+
+    1. Controller is a higher-order component (HOC) provided by react-hook-form.
+
+    2. It acts as a bridge between controlled components (like Material-UI, Ant Design, or TinyMCE) and React Hook Form.
+
+    3. It allows you to integrate third-party components that do not follow React Hook Form's uncontrolled component pattern.
+  */
 
 export default function RTE({
     name,
@@ -19,6 +29,8 @@ export default function RTE({
 
         render={({field: {onChange}}) => (
             <Editor
+
+            //Editor is React component
             initialValue={defaultValue}
             init={{
                 initialValue: defaultValue,
