@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+// import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import store from './store/store.js'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import AuthLayout from './components/AuthLayout.jsx'
-import {Home, AddPost, EditPost, AllPosts, Signup, Login, Post } from "./pages"
+import {Home, AddPost, EditPost, AllPost, Signup, Login, Post } from "./pages"
 
 const router = createBrowserRouter([
   {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: (
-          <AuthLayout autentication={false}>
+          <AuthLayout authentication={false}>
             <Login />
           </AuthLayout>
         ),      
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: (
-          <AuthLayout autentication={false}>
+          <AuthLayout authentication={false}>
             <Signup />
           </AuthLayout>
         )
@@ -39,8 +39,8 @@ const router = createBrowserRouter([
       {
         path: "/all-post",
         element: (
-          <AuthLayout autentication={false}>
-          <AllPosts />
+          <AuthLayout authentication>
+          <AllPost />
         </AuthLayout>
         )
       },
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
       {
         path: "/add-post",
         element: (
-          <AuthLayout autentication={false}>
+          <AuthLayout authentication>
           <AddPost />
         </AuthLayout>
         )
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
       {
         path: "/edit-post/:slug",
         element: (
-          <AuthLayout autentication={false}>
+          <AuthLayout authentication>
           <EditPost />
         </AuthLayout>
         )
@@ -71,10 +71,10 @@ const router = createBrowserRouter([
   }
 ])
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+
     <Provider store={store}>
     <RouterProvider router={router}/>
     </Provider>
-  </StrictMode>,
+
 
 )

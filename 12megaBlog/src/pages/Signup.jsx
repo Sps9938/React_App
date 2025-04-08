@@ -2,7 +2,7 @@ import React from "react";
 
 import { Signup as SignupComponent } from '../components' 
 
-function Singup() {
+function Signup() {
     return (
         <div className="py-8">
             <SignupComponent />
@@ -10,4 +10,4 @@ function Singup() {
     )
 }
 
-export default Singup
+export default Signup

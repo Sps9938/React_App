@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import authService from "../appwrite/auth";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../store/authSlice";
 import {Button, Input, Logo } from './index'
 import { useDispatch } from "react-redux";
@@ -8,6 +8,10 @@ import { useForm } from 'react-hook-form'
 
 
 function Signup() {
+    // const handleSubmitForSignUp = () => {
+    //     console.log("sign in");
+        
+    // }
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -15,22 +19,37 @@ function Signup() {
     const {register, handleSubmit} = useForm()
 
     const create = async(data) => {
+        
+        
         setError('')
         try {
+
+            // await account.deleteSession('current');
             const userData = await authService.createAccount(data)
-            if(userData) {
-                const userData = await authService.getCurrentUser()
-                if(userData) dispatch(login(userData))
-                navigate('/')
+            // console.log(userData);
+            
+            if(!userData){
+                setError("Account creation Failed");
+                return;
             }
+            
+            const currentUserData = await authService.getCurrentUser();
+
+            if(!currentUserData) {
+            
+            setError("Failed to fetch user data. Please log in.");
+            return;
+            }
+            dispatch(login(currentUserData));
+            navigate('/');
         } catch (error) {
             setError(error.message)
         }
+    
     }
-
     return (
         <div className="flex items-center justify-center">
-         <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}></div>
+         <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
          <div className="mb-2 flex justify-center">
             <span className="inline-block w-full max-w-[100px]">
                 <Logo width="100%" />
@@ -49,12 +68,12 @@ function Signup() {
             {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
 
         <form 
+      
         onSubmit={handleSubmit(create)}>
             <div className="space-y-5">
                 <Input 
                 label="FullName: "
                 placeholder="Enter your full Name"
-                type="text"
                 {...register("name", {
                     required: true,
                 })}
@@ -81,13 +100,18 @@ function Signup() {
                 required: true,
                })}
                />
-           <Button type="submit" className="w-full">
+           <Button
+        //    onClick={handleSubmit}
+      
+           type="submit" className="w-full">
                Create Account
            </Button>
             </div>
         </form>
-        
+
+        </div>
             </div>
+       
     )
 }
 

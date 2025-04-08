@@ -1,6 +1,6 @@
 import React from "react";
 
-function Button({
+export default function Button({
     children,
     type = 'button',
     bgColor = 'bg-blue-600',
@@ -8,10 +8,22 @@ function Button({
     className ='',
     ...props
 }) {
+    // const btnHandler = async(data) => {
+    //     // console.log("clicked sucussfully");
+    //     console.log(data);
+        
+    //     // const userData = await authService.createAccount(data)
+    //     // console.log("userData Fetched",userData);
+        
+       
+        
+    // }
     return (
-        <button className="(`px-4 py-2 rounded-lg ${bgColor} ${textColor} ${className} {...props}">
+        <button 
+        // onClick={btnHandler}
+        className={`px-4 py-2 rounded-lg ${bgColor} ${textColor} ${className}`}
+        {...props}>
             {children}
         </button>
     )
 }
-export default Button

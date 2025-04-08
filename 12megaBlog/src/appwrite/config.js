@@ -12,7 +12,9 @@ export class Service {
         this.client
             .setEndpoint(conf.appwriteUrl)
             .setProject(conf.appwriteProjectId)
-        this.databases = new Databases(this.Clinet)
+            // .setKey(conf.appwriteApiKey)
+
+        this.databases = new Databases(this.client)
         this.bucket = new Storage(this.client);
 
     }
@@ -76,6 +78,8 @@ export class Service {
     }
 
     async getPost(slug) {
+        console.log(slug);
+        
         try {
             return await this.databases.getDocument(
                 conf.appwriteDataBaseId,
@@ -102,7 +106,7 @@ export class Service {
 
                 // ]
                 // //if not pass or take by default 
-                queries//it is a array
+                queries,//it is a array
             )
         } catch (error) {
             console.log("Appwrite service :: getAllPost :: error", error);
@@ -151,7 +155,7 @@ export class Service {
 
     async fileDownLoad(fileId) {
         try {
-            return await this.bucket.getfileDownlooad(
+            return await this.bucket.getFileDownload(
                 conf.appwriteBucketId,
                 fileId
             )
