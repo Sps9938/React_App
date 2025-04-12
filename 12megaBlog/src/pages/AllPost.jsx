@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Container, PostCard } from "../components";
 
@@ -16,6 +16,8 @@ function AllPost() {
         })
     }, [])
 
+    console.log(posts.documents);
+    
     return (
         <div className="w-full py-8">
             <Container>

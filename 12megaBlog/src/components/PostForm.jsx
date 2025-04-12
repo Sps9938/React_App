@@ -1,4 +1,4 @@
-import React ,{useEffect} from "react";
+import React ,{useEffect, useCallback} from "react";
 import {useForm} from 'react-hook-form'
 
 import {Button, Input, Select, RTE} from './index'
@@ -14,8 +14,8 @@ export default function PostForm( { post }) {
         defaultValues: {
             title: post?.title || "",
             slug: post?.$id || "",
-            //if we have used mongoDb then you wrtie {
-           //slug: post?._id 
+            // If we had used MongoDB, you would write:
+            // slug: post?._id 
             // }
             content: post?.content || "",
             status: post?.status || "active",
@@ -23,32 +23,55 @@ export default function PostForm( { post }) {
     });
     const navigate = useNavigate();
     const userData = useSelector((state) => state.auth.userData);
+    // console.log(userData);
+    
+    
 
     const submit = async (data) => {
         if(post) {
 
             const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null
 
-            if(file) {
-                appwriteService.deleteFile(post.featuredImage);
+            if(!file) {
+                console.log("File Not Found, previous file should delete first");
+                
             }
+            appwriteService.deleteFile(post.featuredImage);
 
             const dbPost = await appwriteService.updatePost(post.$id, {
             ...data,
             featuredImage: file ? file.$id : undefined,
             });
+            console.log(dbPost);
             
-            if (dbPost) {
-                navigate(`/post/${dbPost.$id}`)
+            if (!dbPost) {
+               console.log("Post Not Found");
+               
             } 
+            navigate(`/post/${dbPost.$id}`)
         }
         else{
             const file = await appwriteService.uploadFile(data.image[0])
 
-            if(file){
-                const fileId = file.$id;
-                data.featuredImage = fileId;
-                const dbPost = await appwriteService.createPost({...data, userId: userData.$id});
+            console.log(userData.$id);
+
+            if(!file){
+               console.log("File Fetched Fail");
+               
+            }
+            const fileId = file.$id;
+            // console.log(fileId);
+            
+            data.featuredImage = fileId;
+            const dbPost = await appwriteService.createPost({...data, userId: userData.$id});
+
+
+            if(!dbPost) {
+                console.log("Post not Found in dataBase");
+                
+            }
+            navigate(`/post/${dbPost.$id}`)
+        }
 
     /*
         📌 What is Stored in dbPost?
@@ -110,11 +133,7 @@ export default function PostForm( { post }) {
         }
 
     */
-                if(dbPost) {
-                    navigate(`/post/${dbPost.$id}`)
-                }
-            }
-        }
+        
     }
 
     const slugTransForm = useCallback((value) => {
@@ -222,7 +241,7 @@ export default function PostForm( { post }) {
                 className="mb-4"
                 {...register("slug", { required: true })}
                 onInput={(e) => {
-                    setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
+                    setValue("slug", slugTransForm(e.currentTarget.value), { shouldValidate: true });
                 }}
             />
             <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")} />
@@ -238,7 +257,7 @@ export default function PostForm( { post }) {
             {post && (
                 <div className="w-full mb-4">
                     <img
-                        src={appwriteService.getFilePreview(post.featuredImage)}
+                        src={appwriteService.getFileView(post.featuredImage)}
                         alt={post.title}
                         className="rounded-lg"
                     />

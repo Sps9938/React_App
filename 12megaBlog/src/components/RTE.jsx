@@ -29,7 +29,7 @@ export default function RTE({
 
         render={({field: {onChange}}) => (
             <Editor
-
+            apiKey='8ub6sdprz3c69r00kx0sbj01i415jptjkf1ib1svgu0cptfj'
             //Editor is React component
             initialValue={defaultValue}
             init={{
@@ -62,7 +62,8 @@ export default function RTE({
                 "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
                 content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
             }}
-            onEditorChange={onChange}//TenyMce provides an event handler
+            onEditorChange={onChange}
+            //TenyMce provides an event handler
 
             /*
 

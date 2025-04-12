@@ -8,13 +8,14 @@ function LogoutBtn() {
     const logoutHandler = async() => {
         try {
             const result = await authService.logout();
-            console.log(result);
+            dispatch(logout());
+            // console.log(result);
             
-            if(!result) {
-                dispatch(logout());
-                console.log("User logged out");
+            // if(!result) {
+            //     dispatch(logout());
+            //     console.log("User logged out");
                 
-            }
+            // }
         } catch (error) {
             console.log("Logout Failed", error);
             

@@ -40,39 +40,41 @@ function Header() {
   ]
 
     return (
-<header className="py-3 shadow bg-gray-500">
-    <Container>
-        <nav className="flex items-center">
-        {/* Logo Section */}
-        <div className="mr-4">
-            <Link to="/">
-            <Logo width="70px" />
-            </Link>
-        </div>
+<header className="bg-white shadow-md sticky top-0 z-50">
+<Container>
+<nav className="flex items-center justify-between py-4">
+    
+    {/* Logo Section */}
+    <Link to="/" className="flex items-center gap-2">
+    <Logo width="40px" />
+    <span className="text-xl font-bold text-gray-800 tracking-wide">Post<span className="text-yellow-500">Plus</span></span>
+    </Link>
 
-        {/* Navigation Links - Aligned Right */}
-<ul className="flex ml-auto space-x-6 text-white items-center">
-    {navItems.map((item) =>
+    {/* Navigation Links */}
+    <ul className="flex items-center space-x-4">
+{navItems.map((item) =>
     item.active ? (
-        <li key={item.name}>
+    <li key={item.name}>
         <button
-            onClick={() => navigate(item.slug)}
-            className="inline-block px-6 py-2 duration-200 hover:bg-yellow-400 rounded-full"
+        onClick={() => navigate(item.slug)}
+        className="px-4 py-2 text-gray-700 hover:text-white hover:bg-yellow-500 transition-all duration-200 rounded-full text-sm font-medium"
         >
-            {item.name}
+        {item.name}
         </button>
-        </li>
+    </li>
     ) : null
     )}
+
     {authStatus && (
-    <li>
+        <li>
         <LogoutBtn />
-    </li>
+        </li>
     )}
-</ul>
-        </nav>
-    </Container>
-    </header>
+    </ul>
+</nav>
+</Container>
+</header>
+
 
     )
 }

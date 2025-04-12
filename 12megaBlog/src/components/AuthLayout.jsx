@@ -19,8 +19,8 @@ export default function Protected({children, authentication=true}) {
         // }
 
         //let authValue = authStatus === treu ? true : false
-        console.log("status is: ",authStatus);
-        console.log("authentication", authentication);
+        // console.log("status is: ",authStatus);
+        // console.log("authentication", authentication);
         
         
         if(authStatus === null) return;
